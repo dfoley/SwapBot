@@ -1,0 +1,445 @@
+/* FEEDBACK FLAIR- STAYS AT BOTTOM */
+
+.flair, .res-nightmode .flair {
+    margin-left: 10px;
+    padding-right: 3px;
+    background-position: 1px -16px!important;
+    border: 1;
+    height: 16px;
+    overflow: visible;
+    visibility: visible;
+    font-size: 11px!important;
+    width: auto;
+    color: #000;
+    content: "0"
+}
+
+.flaircolorlight {
+    color: #FFF!important;
+}
+
+.flaircolordark {
+    color: #000!important;
+}
+
+.flair-0-4 {
+    background-color: #FF0000;
+    color: #FFF;
+}
+
+.res-nightmode .flair-0-4 {
+    border-color: #FF0000;
+    color: #FF0000;
+}
+
+.flair-5-9 {
+    background-color: #FFA500;
+    color: #000;
+}
+
+.res-nightmode .flair-5-9 {
+    border-color: #FFA500;
+    color: #FFA500;
+}
+
+.flair-10-19 {
+    background-color: #FFFF00;
+    color: #000;
+}
+
+.res-nightmode .flair-10-19 {
+    border-color: #FFFF00;
+    color: #FFFF00;
+}
+
+.flair-20-29 {
+    background-color: #BBFF00;
+    color: #000;
+}
+
+.res-nightmode .flair-20-29 {
+    border-color: #BBFF00;
+    color: #BBFF00;
+}
+
+.flair-30-39 {
+    background-color: #77FF00;
+    color: #000;
+}
+
+.res-nightmode .flair-30-39 {
+    border-color: #77FF00;
+    color: #77FF00;
+}
+
+.flair-40-49 {
+    background-color: #00CC00;
+    color: #000;
+}
+
+.res-nightmode .flair-40-49 {
+    border-color: #00CC00;
+    color: #00CC00;
+}
+
+.flair-50-59 {
+    background-color: #00FFBB;
+    color: #000;
+}
+
+.res-nightmode .flair-50-59 {
+    border-color: #00FFBB;
+    color: #00FFBB;
+}
+
+.flair-60-69 {
+    background-color: #00DDFF;
+    color: #000;
+}
+
+.res-nightmode .flair-60-69 {
+    border-color: #00DDFF;
+    color: #00DDFF;
+}
+
+.flair-70-79 {
+    background-color: #0099FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-70-79 {
+    border-color: #0099FF;
+    color: #0099FF;
+}
+
+.flair-80-89 {
+    background-color: #0066FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-80-89 {
+    border-color: #0066ff;
+    color: #0066ff;
+}
+
+.flair-90-99 {
+    background-color: #3344ff;
+    color: #fff;
+}
+
+ .res-nightmode .flair-90-99 {
+    border-color: #3344ff;
+    color: #3344ff;
+}
+
+.flair-100-199 {
+    background-color: #5533FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-100-199 {
+    border-color: #5533FF;
+    color: #5533FF;
+}
+
+.flair-200-299 {
+    background-color: #7700FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-200-299 {
+    border-color: #7700FF;
+    color: #7700FF;
+}
+
+.flair-300-399 {
+    background-color: #AA00FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-300-399 {
+    border-color: #AA00FF;
+    color: #AA00FF;
+}
+
+.flair-400-499 {
+    background-color: #ff00ff;
+    color: #fff;
+}
+
+.res-nightmode .flair-400-499 {
+    border-color: #FF00FF;
+    color: #FF00FF;
+}
+
+.flair-500-599 {
+    background-color: #FF00AA;
+    color: #fff;
+}
+
+.res-nightmode .flair-500-599 {
+    border-color: #FF00AA;
+    color: #FF00AA;
+}
+
+.flair-600-699 {
+    background-color: #CD7F32;
+    color: #fff;
+}
+
+.res-nightmode .flair-600-699 {
+    border-color: #CD7F32;
+    color: #CD7F32;
+}
+
+.flair-700-799 {
+    background-color: #C0C0C0;
+    color: #000;
+}
+
+.res-nightmode .flair-700-799 {
+    border-color: #C0C0C0;
+    color: #C0C0C0;
+}
+
+.flair-800-899 {
+    background-color: #FFD700;
+    color: #000;
+}
+
+.res-nightmode .flair-800-899 {
+    border-color: #FFD700;
+    color: #FFD700;
+}
+
+.flair-900-999 {
+    background-color: #000000;
+    color: #C0C0C0;
+}
+
+.res-nightmode .flair-900-999 {
+    border-color: #FFF;
+    color: #C0C0C0;
+}/* FEEDBACK FLAIR- STAYS AT BOTTOM */
+
+.flair, .res-nightmode .flair {
+    margin-left: 10px;
+    padding-right: 3px;
+    background-position: 1px -16px!important;
+    border: 1;
+    height: 16px;
+    overflow: visible;
+    visibility: visible;
+    font-size: 11px!important;
+    width: auto;
+    color: #000;
+    content: "0"
+}
+
+.flaircolorlight {
+    color: #FFF!important;
+}
+
+.flaircolordark {
+    color: #000!important;
+}
+
+.flair-0-4 {
+    background-color: #FF0000;
+    color: #FFF;
+}
+
+.res-nightmode .flair-0-4 {
+    border-color: #FF0000;
+    color: #FF0000;
+}
+
+.flair-5-9 {
+    background-color: #FFA500;
+    color: #000;
+}
+
+.res-nightmode .flair-5-9 {
+    border-color: #FFA500;
+    color: #FFA500;
+}
+
+.flair-10-19 {
+    background-color: #FFFF00;
+    color: #000;
+}
+
+.res-nightmode .flair-10-19 {
+    border-color: #FFFF00;
+    color: #FFFF00;
+}
+
+.flair-20-29 {
+    background-color: #BBFF00;
+    color: #000;
+}
+
+.res-nightmode .flair-20-29 {
+    border-color: #BBFF00;
+    color: #BBFF00;
+}
+
+.flair-30-39 {
+    background-color: #77FF00;
+    color: #000;
+}
+
+.res-nightmode .flair-30-39 {
+    border-color: #77FF00;
+    color: #77FF00;
+}
+
+.flair-40-49 {
+    background-color: #00CC00;
+    color: #000;
+}
+
+.res-nightmode .flair-40-49 {
+    border-color: #00CC00;
+    color: #00CC00;
+}
+
+.flair-50-59 {
+    background-color: #00FFBB;
+    color: #000;
+}
+
+.res-nightmode .flair-50-59 {
+    border-color: #00FFBB;
+    color: #00FFBB;
+}
+
+.flair-60-69 {
+    background-color: #00DDFF;
+    color: #000;
+}
+
+.res-nightmode .flair-60-69 {
+    border-color: #00DDFF;
+    color: #00DDFF;
+}
+
+.flair-70-79 {
+    background-color: #0099FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-70-79 {
+    border-color: #0099FF;
+    color: #0099FF;
+}
+
+.flair-80-89 {
+    background-color: #0066FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-80-89 {
+    border-color: #0066ff;
+    color: #0066ff;
+}
+
+.flair-90-99 {
+    background-color: #3344ff;
+    color: #fff;
+}
+
+ .res-nightmode .flair-90-99 {
+    border-color: #3344ff;
+    color: #3344ff;
+}
+
+.flair-100-199 {
+    background-color: #5533FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-100-199 {
+    border-color: #5533FF;
+    color: #5533FF;
+}
+
+.flair-200-299 {
+    background-color: #7700FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-200-299 {
+    border-color: #7700FF;
+    color: #7700FF;
+}
+
+.flair-300-399 {
+    background-color: #AA00FF;
+    color: #fff;
+}
+
+.res-nightmode .flair-300-399 {
+    border-color: #AA00FF;
+    color: #AA00FF;
+}
+
+.flair-400-499 {
+    background-color: #ff00ff;
+    color: #fff;
+}
+
+.res-nightmode .flair-400-499 {
+    border-color: #FF00FF;
+    color: #FF00FF;
+}
+
+.flair-500-599 {
+    background-color: #FF00AA;
+    color: #fff;
+}
+
+.res-nightmode .flair-500-599 {
+    border-color: #FF00AA;
+    color: #FF00AA;
+}
+
+.flair-600-699 {
+    background-color: #CD7F32;
+    color: #fff;
+}
+
+.res-nightmode .flair-600-699 {
+    border-color: #CD7F32;
+    color: #CD7F32;
+}
+
+.flair-700-799 {
+    background-color: #C0C0C0;
+    color: #000;
+}
+
+.res-nightmode .flair-700-799 {
+    border-color: #C0C0C0;
+    color: #C0C0C0;
+}
+
+.flair-800-899 {
+    background-color: #FFD700;
+    color: #000;
+}
+
+.res-nightmode .flair-800-899 {
+    border-color: #FFD700;
+    color: #FFD700;
+}
+
+.flair-900-999 {
+    background-color: #000000;
+    color: #C0C0C0;
+}
+
+.res-nightmode .flair-900-999 {
+    border-color: #FFF;
+    color: #C0C0C0;
+}
