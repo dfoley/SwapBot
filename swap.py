@@ -3,21 +3,29 @@ import json
 import praw
 import time
 import datetime
+import os.path
 
 debug = False
 
-f = open("config.txt", "r")
+# Gets the absolute path to the directory in which the script exists, then adds a trailing /.
+fdir = os.path.abspath(os.path.dirname(__file__)) + '/'
+
+f = open(fdir + "config.txt", "r")
 info = f.read().splitlines()
 f.close()
+
+fc = open(fdir + "flairconfig.txt", "r")
+flairtemp = fc.read().splitlines()
+fc.close()
 
 subreddit_name = info[0]
 client_id = info[1]
 client_secret = info[2]
 bot_username = info[3]
 bot_password = info[4]
-FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
-FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
-FNAME_archive = 'database/archive-' + subreddit_name + '.txt'
+FNAME_comments = fdir + 'database/active_comments-' + subreddit_name + '.txt'
+FNAME_swaps = fdir + 'database/swaps-' + subreddit_name + ".json"
+FNAME_archive = fdir + 'database/archive-' + subreddit_name + '.txt'
 
 check_time = datetime.datetime.utcnow().time()
 
@@ -49,9 +57,9 @@ def ascii_encode_dict(data):
 
 # Function to load the swap DB into memory
 def get_swap_data():
-	with open(FNAME_swaps) as json_data: # open the funko-shop's data
-		funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-	return funko_store_data
+	with open(FNAME_swaps) as json_data: # open the DB's data
+		store_data = json.load(json_data, object_hook=ascii_encode_dict)
+	return store_data
 
 # Dump the comment Ids
 def dump(to_write):
@@ -113,8 +121,51 @@ def update_flair(author1, author2, sub, swap_data):
 	for author in [author1, author2]:
 		print("attempting to assign flair for " + author)
 		css = str(len(swap_data[author]))
+		if 0 <= int(css) < 5:
+		    template = flairtemp[0]
+		elif 5 <= int(css) < 10:
+		    template = flairtemp[1]
+		elif 10 <= int(css) < 20:
+		    template = flairtemp[2]
+		elif 20 <= int(css) < 30:
+		    template = flairtemp[3]
+		elif 30 <= int(css) < 40:
+		    template = flairtemp[4]
+		elif 40 <= int(css) < 50:
+		    template = flairtemp[5]
+		elif 50 <= int(css) < 60:
+		    template = flairtemp[6]
+		elif 60 <= int(css) < 70:
+		    template = flairtemp[7]
+		elif 70 <= int(css) < 80:
+		    template = flairtemp[8]
+		elif 80 <= int(css) < 90:
+		    template = flairtemp[9]
+		elif 90 <= int(css) < 100:
+		    template = flairtemp[10]
+		elif 100 <= int(css) < 200:
+		    template = flairtemp[11]
+		elif 200 <= int(css) < 300:
+		    template = flairtemp[12]
+		elif 300 <= int(css) < 400:
+		    template = flairtemp[13]
+		elif 400 <= int(css) < 500:
+		    template = flairtemp[14]
+		elif 500 <= int(css) < 600:
+		    template = flairtemp[15]
+		elif 600 <= int(css) < 700:
+		    template = flairtemp[16]
+		elif 700 <= int(css) < 800:
+		    template = flairtemp[17]
+		elif 800 <= int(css) < 900:
+		    template = flairtemp[18]
+		elif 900 <= int(css):
+		    template = flairtemp[19]
+		else:
+		    print("Invalid data: " + css)
 		if not debug:
-			sub.flair.set(author, css+" swaps", css)
+			#sub.flair.set(author, css+" Swaps", css)
+			sub.flair.set(author, css+" Swaps", flair_template_id=template)
 		else:
 			print("Assigning flair " + css + " to user " + author)
 			print("length of swap_data: " + str(len(swap_data[author])))
@@ -232,9 +283,9 @@ def inform_comment_archived(comment, to_archive):
 def inform_giving_credit(correct_reply):
 	try:
 		if not debug:
-			correct_reply.reply("Added")
+			correct_reply.reply("Swap has been confirmed!")
 		else:
-			print("Added" + "\n==========")
+			print("Swap has been confirmed!" + "\n==========")
 	except Exception as e:  # Comment was porobably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
@@ -302,17 +353,17 @@ def main():
 		text = (message.body + " " +  message.subject).replace("\n", " ").replace("\r", " ").split(" ")  # get each unique word
 		username = ""  # This will hold the username in question
 		for word in text:
-			if '/u/' in word.lower():  # Same as above but if they start with a leading /u/ instead of u/
+			if '/u/' in word.lower():  # Save the username and break early
 				username = word.lower()[3:]
 				break
-			if 'u/' in word.lower():  # if we have a username
-				username = word.lower()[2:]  # Save the username and break early
+			if 'u/' in word.lower():  # Same as above, but without a leading /
+				username = word.lower()[2:]  
 				break
 		if not username:  # If we didn't find a username, let them know and continue
 			if not debug:
-				message.reply("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, such as u/FreddySwapBot, in the body of the message you just sent me. Please feel free to try again. Thanks!")
+				message.reply("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, such as u/SteelbookSwapBot, in the body of the message you just sent me. Please feel free to try again. Thanks!")
 			else:
-				print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, such as u/FreddySwapBot, in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
+				print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, such as u/SteelbookSwapBot, in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
 			continue
 		final_text = ""
 		try:
@@ -324,15 +375,35 @@ def main():
 				print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
 			continue
 
-		legacy_count = 0  # Use this to track the number of legacy swaps someone has
+		br_count = 0  # Tracks verified swaps someone has on Blu-ray.com
+		hdd_count = 0  # Tracks verified swaps someone has on High-Def Digest
+		hdn_count = 0  # Tracks verified swaps someone has on Hi-Def Ninja
+		mp_count = 0  # Tracks verified swaps someone has on Media Psychos
+		legacy_count = 0  # Tracks legacy swaps someone has from r/Steelbooks
 		for trade in trades:
 			if trade == "LEGACY TRADE":
 				legacy_count += 1
+			elif trade == "VERIFIED BR":
+				br_count += 1
+			elif trade == "VERIFIED HDD":
+				hdd_count += 1
+			elif trade == "VERIFIED HDN":
+				hdn_count += 1
+			elif trade == "VERIFIED MP":
+				mp_count += 1
 			else:
 				final_text += "*  u/" + trade + "\n\n"
 
 		if legacy_count > 0:
 			final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
+		if mp_count > 0:
+			final_text = "* " + str(mp_count) + " Trades from Media Psychos.\n\n" + final_text
+		if hdn_count > 0:
+			final_text = "* " + str(hdn_count) + " Trades from Hi-Def Ninja.\n\n" + final_text
+		if hdd_count > 0:
+			final_text = "* " + str(hdd_count) + " Trades from High-Def Digest.\n\n" + final_text
+		if br_count > 0:
+			final_text = "* " + str(br_count) + " Trades from Blu-Ray.com.\n\n" + final_text
 
 		if len(trades) == 0:
 			if not debug:
