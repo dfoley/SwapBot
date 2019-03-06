@@ -1,6 +1,6 @@
 import json
 
-FNAME = 'database/swaps-funkoswap.json'
+FNAME = 'database/swaps-steelbookswap.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
