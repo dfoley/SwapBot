@@ -9,9 +9,9 @@ def ascii_encode_dict(data):
 
 # Function to load the DB into memory
 def get_db():
-        with open(FNAME) as json_data: # open the funko-shop's data
-                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-        return funko_store_data
+        with open(FNAME) as json_data: # open the shop's data
+                store_data = json.load(json_data, object_hook=ascii_encode_dict)
+        return store_data
 
 def dump(swap_data):
         with open(FNAME, 'w') as outfile:  # Write out new data
