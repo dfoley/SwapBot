@@ -1,0 +1,4 @@
+config.txt
+flairconfig.txt
+*.pyc
+.DS_Store
