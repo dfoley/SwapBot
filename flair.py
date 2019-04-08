@@ -72,6 +72,7 @@ def update_flair(sub):
             template = flairtemp[19]
         else:
             print("Invalid data: " + css)
+            continue
 
         print(str(flair['user']) + " - " + css + " Swaps")
         sub.flair.set(str(flair['user']).lower(), css+" Swaps", flair_template_id=template)
