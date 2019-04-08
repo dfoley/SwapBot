@@ -1,0 +1,443 @@
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 35, in call
+    kwargs['headers'] = set_header_callback()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 145, in _set_header_callback
+    self._authorizer.refresh()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 328, in refresh
+    password=self._password)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 138, in _request_token
+    response = self._authenticator._post(url, **data)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 29, in _post
+    data=sorted(data.items()))
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/requestor.py", line 49, in request
+    raise RequestException(exc, args, kwargs)
+prawcore.exceptions.RequestException: error with request HTTPSConnectionPool(host='www.reddit.com', port=443): Max retries exceeded with url: /api/v1/access_token (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0xb5dde2b0>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution',))
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 35, in call
+    kwargs['headers'] = set_header_callback()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 145, in _set_header_callback
+    self._authorizer.refresh()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 328, in refresh
+    password=self._password)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 138, in _request_token
+    response = self._authenticator._post(url, **data)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 29, in _post
+    data=sorted(data.items()))
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/requestor.py", line 49, in request
+    raise RequestException(exc, args, kwargs)
+prawcore.exceptions.RequestException: error with request HTTPSConnectionPool(host='www.reddit.com', port=443): Max retries exceeded with url: /api/v1/access_token (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0xb5f4a9b0>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution',))
+Looking through archived comments...
+attempting to assign flair for rafa101010
+attempting to assign flair for epigoneoftruth
+Looking through archived comments...
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 36, in call
+    response = request_function(*args, **kwargs)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/requestor.py", line 49, in request
+    raise RequestException(exc, args, kwargs)
+prawcore.exceptions.RequestException: error with request HTTPSConnectionPool(host='oauth.reddit.com', port=443): Read timed out. (read timeout=16.0)
+Looking through archived comments...
+attempting to assign flair for dave-a-sarus
+attempting to assign flair for taylotra
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 35, in call
+    kwargs['headers'] = set_header_callback()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 145, in _set_header_callback
+    self._authorizer.refresh()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 328, in refresh
+    password=self._password)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 138, in _request_token
+    response = self._authenticator._post(url, **data)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 31, in _post
+    raise ResponseException(response)
+prawcore.exceptions.ResponseException: received 503 HTTP response
+Looking through archived comments...
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 35, in call
+    kwargs['headers'] = set_header_callback()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 145, in _set_header_callback
+    self._authorizer.refresh()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 328, in refresh
+    password=self._password)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 138, in _request_token
+    response = self._authenticator._post(url, **data)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 31, in _post
+    raise ResponseException(response)
+prawcore.exceptions.ResponseException: received 503 HTTP response
+Looking through archived comments...
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 35, in call
+    kwargs['headers'] = set_header_callback()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 145, in _set_header_callback
+    self._authorizer.refresh()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 328, in refresh
+    password=self._password)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 138, in _request_token
+    response = self._authenticator._post(url, **data)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 29, in _post
+    data=sorted(data.items()))
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/requestor.py", line 49, in request
+    raise RequestException(exc, args, kwargs)
+prawcore.exceptions.RequestException: error with request HTTPSConnectionPool(host='www.reddit.com', port=443): Max retries exceeded with url: /api/v1/access_token (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0xb5f6ca10>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution',))
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 35, in call
+    kwargs['headers'] = set_header_callback()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 145, in _set_header_callback
+    self._authorizer.refresh()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 328, in refresh
+    password=self._password)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 138, in _request_token
+    response = self._authenticator._post(url, **data)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 29, in _post
+    data=sorted(data.items()))
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/requestor.py", line 49, in request
+    raise RequestException(exc, args, kwargs)
+prawcore.exceptions.RequestException: error with request HTTPSConnectionPool(host='www.reddit.com', port=443): Max retries exceeded with url: /api/v1/access_token (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0xb5ebfa10>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution',))
+attempting to assign flair for rafa101010
+attempting to assign flair for mondial5
+attempting to assign flair for epigoneoftruth
+attempting to assign flair for demicow
+Looking through archived comments...
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 35, in call
+    kwargs['headers'] = set_header_callback()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 145, in _set_header_callback
+    self._authorizer.refresh()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 328, in refresh
+    password=self._password)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 138, in _request_token
+    response = self._authenticator._post(url, **data)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 31, in _post
+    raise ResponseException(response)
+prawcore.exceptions.ResponseException: received 502 HTTP response
+attempting to assign flair for xtrmereddit227
+attempting to assign flair for dave-a-sarus
+Looking through archived comments...
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 130, in _request_with_retries
+    raise self.STATUS_EXCEPTIONS[response.status_code](response)
+prawcore.exceptions.ServerError: received 503 HTTP response
+Looking through archived comments...
+attempting to assign flair for mellifluousmike
+attempting to assign flair for sneakysqueaker17
+attempting to assign flair for mellifluousmike
+attempting to assign flair for tmtaylor87
+Looking through archived comments...
+attempting to assign flair for mellifluousmike
+attempting to assign flair for arctic0527
+Looking through archived comments...
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 128, in _request_with_retries
+    retries, saved_exception, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 94, in _do_retry
+    params=params, url=url, retries=retries - 1)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 36, in call
+    response = request_function(*args, **kwargs)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/requestor.py", line 49, in request
+    raise RequestException(exc, args, kwargs)
+prawcore.exceptions.RequestException: error with request HTTPSConnectionPool(host='oauth.reddit.com', port=443): Read timed out. (read timeout=16.0)
+Traceback (most recent call last):
+  File "swap.py", line 419, in <module>
+    main()
+  File "swap.py", line 310, in main
+    set_active_comments_and_messages(reddit, comments, messages)
+  File "swap.py", line 185, in set_active_comments_and_messages
+    for message in reddit.inbox.unread():
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 80, in next
+    return self.__next__()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 52, in __next__
+    self._next_batch()
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/models/listing/generator.py", line 62, in _next_batch
+    self._listing = self._reddit.get(self.url, params=self.params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 408, in get
+    data = self.request('GET', path, params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/praw/reddit.py", line 534, in request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 185, in request
+    params=params, url=url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 116, in _request_with_retries
+    data, files, json, method, params, retries, url)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 101, in _make_request
+    params=params)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/rate_limit.py", line 35, in call
+    kwargs['headers'] = set_header_callback()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/sessions.py", line 145, in _set_header_callback
+    self._authorizer.refresh()
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 328, in refresh
+    password=self._password)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 138, in _request_token
+    response = self._authenticator._post(url, **data)
+  File "/home/pi/.local/lib/python2.7/site-packages/prawcore/auth.py", line 31, in _post
+    raise ResponseException(response)
+prawcore.exceptions.ResponseException: received 503 HTTP response
+Looking through archived comments...
+attempting to assign flair for ya_boy_danny_rand
+attempting to assign flair for yoonitron
