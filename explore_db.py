@@ -1,6 +1,8 @@
 import json
 
-FNAME = 'database/swaps-steelbookswap.json'
+FNAME = 'database/swaps-funkoswap.json'
+FNAME = 'database/swaps-pkmntcgtrades.json'
+FNAME = 'database/swaps-vinylcollectors.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -9,9 +11,9 @@ def ascii_encode_dict(data):
 
 # Function to load the DB into memory
 def get_db():
-        with open(FNAME) as json_data: # open the shop's data
-                store_data = json.load(json_data, object_hook=ascii_encode_dict)
-        return store_data
+        with open(FNAME) as json_data: # open the funko-shop's data
+                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
+        return funko_store_data
 
 def dump(swap_data):
         with open(FNAME, 'w') as outfile:  # Write out new data
@@ -23,8 +25,8 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 db = get_db()
-print(db.keys())
-#print(db.keys())
+print(db['tufnut2crack'])
+#dump(db)
 print(db['champion_dave'.lower()])
 print(db['citricacidx'.lower()])
 
