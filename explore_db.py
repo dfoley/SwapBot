@@ -2,6 +2,7 @@ import json
 
 FNAME = 'database/swaps-funkoswap.json'
 FNAME = 'database/swaps-pkmntcgtrades.json'
+FNAME = 'database/swaps-steelbookswap.json'
 FNAME = 'database/swaps-vinylcollectors.json'
 
 # required function for getting ASCII from json load
