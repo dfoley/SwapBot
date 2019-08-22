@@ -25,9 +25,5 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 db = get_db()
-print(db['tufnut2crack'])
-#dump(db)
-print(db['champion_dave'.lower()])
-print(db['citricacidx'.lower()])
-
+print(db['citricacidx'])
 #dump(db)
