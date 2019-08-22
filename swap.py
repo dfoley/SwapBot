@@ -3,30 +3,43 @@ import json
 import praw
 import time
 import datetime
-import os.path
+import argparse
+
+try:
+	parser = argparse.ArgumentParser()
+	parser.add_argument('config_file_name', metavar='C', type=str)
+	args = parser.parse_args()
+	fname = 'config/' + args.config_file_name
+except: # if no cmnd line args are passed in, assume they are still using old file structure
+	fname = "config.txt"
 
 debug = False
 
-# Gets the absolute path to the directory in which the script exists, then adds a trailing /.
-fdir = os.path.abspath(os.path.dirname(__file__)) + '/'
-
-f = open(fdir + "config.txt", "r")
+f = open(fname, "r")
 info = f.read().splitlines()
 f.close()
 
-fc = open(fdir + "flairconfig.txt", "r")
-flairtemp = fc.read().splitlines()
-fc.close()
+# Pad out the config values in case optional options are not present
+for i in range(7 - len(info)):
+	info.append("")
 
 subreddit_name = info[0]
 client_id = info[1]
 client_secret = info[2]
 bot_username = info[3]
 bot_password = info[4]
-FNAME_comments = fdir + 'database/active_comments-' + subreddit_name + '.txt'
-FNAME_swaps = fdir + 'database/swaps-' + subreddit_name + ".json"
-FNAME_archive = fdir + 'database/archive-' + subreddit_name + '.txt'
+if info[5]:
+	flair_word = " " + info[5]
+else:
+	flair_word = " Swaps"
+if info[6]:
+	mod_flair_word = info[6] + " "
+else:
+	mod_flair_word = ""
 
+FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
+FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
+FNAME_archive = 'database/archive-' + subreddit_name + '.txt'
 check_time = datetime.datetime.utcnow().time()
 
 # Checks if the time at script start up is between two desired times
@@ -57,9 +70,9 @@ def ascii_encode_dict(data):
 
 # Function to load the swap DB into memory
 def get_swap_data():
-	with open(FNAME_swaps) as json_data: # open the DB's data
-		store_data = json.load(json_data, object_hook=ascii_encode_dict)
-	return store_data
+	with open(FNAME_swaps) as json_data: # open the funko-shop's data
+		funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
+	return funko_store_data
 
 # Dump the comment Ids
 def dump(to_write):
@@ -113,6 +126,7 @@ def update_database(author1, author2, swap_data, post_id):
 	return True  # If all went well, return true
 
 def update_flair(author1, author2, sub, swap_data):
+	mods = [str(x).lower() for x in sub.moderator()]
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
 
@@ -120,54 +134,14 @@ def update_flair(author1, author2, sub, swap_data):
 	# Loop over each author and change their flair
 	for author in [author1, author2]:
 		print("attempting to assign flair for " + author)
-		css = str(len(swap_data[author]))
-		if 0 <= int(css) < 5:
-		    template = flairtemp[0]
-		elif 5 <= int(css) < 10:
-		    template = flairtemp[1]
-		elif 10 <= int(css) < 20:
-		    template = flairtemp[2]
-		elif 20 <= int(css) < 30:
-		    template = flairtemp[3]
-		elif 30 <= int(css) < 40:
-		    template = flairtemp[4]
-		elif 40 <= int(css) < 50:
-		    template = flairtemp[5]
-		elif 50 <= int(css) < 60:
-		    template = flairtemp[6]
-		elif 60 <= int(css) < 70:
-		    template = flairtemp[7]
-		elif 70 <= int(css) < 80:
-		    template = flairtemp[8]
-		elif 80 <= int(css) < 90:
-		    template = flairtemp[9]
-		elif 90 <= int(css) < 100:
-		    template = flairtemp[10]
-		elif 100 <= int(css) < 200:
-		    template = flairtemp[11]
-		elif 200 <= int(css) < 300:
-		    template = flairtemp[12]
-		elif 300 <= int(css) < 400:
-		    template = flairtemp[13]
-		elif 400 <= int(css) < 500:
-		    template = flairtemp[14]
-		elif 500 <= int(css) < 600:
-		    template = flairtemp[15]
-		elif 600 <= int(css) < 700:
-		    template = flairtemp[16]
-		elif 700 <= int(css) < 800:
-		    template = flairtemp[17]
-		elif 800 <= int(css) < 900:
-		    template = flairtemp[18]
-		elif 900 <= int(css):
-		    template = flairtemp[19]
-		else:
-		    print("Invalid data: " + css)
+		swap_count = str(len(swap_data[author]))
 		if not debug:
-			#sub.flair.set(author, css+" Swaps", css)
-			sub.flair.set(author, css+" Swaps", flair_template_id=template)
+			if author in mods:
+				sub.flair.set(author, mod_flair_word + swap_count + flair_word, swap_count)
+			else:
+				sub.flair.set(author, swap_count + flair_word, swap_count)
 		else:
-			print("Assigning flair " + css + " to user " + author)
+			print("Assigning flair " + swap_count + " to user " + author)
 			print("length of swap_data: " + str(len(swap_data[author])))
 			print(swap_data[author])
 			print("==========")
@@ -182,16 +156,26 @@ def set_active_comments_and_messages(reddit, comments, messages):
                         pass
 
         # Get comments from username mentions
-        for message in reddit.inbox.unread():
-                if not debug:
-                        message.mark_read()
-                if message.was_comment and message.subject == "username mention" and (not str(message.author).lower() == "automoderator"):
-                        try:
-                                comments.append(reddit.comment(message.id))
-                        except:  # if this fails, the user deleted their account or comment so skip it
-                                pass
-                else:
-                        messages.append(message)
+	to_mark_as_read = []
+	try:
+		for message in reddit.inbox.unread():
+			to_mark_as_read.append(message)
+        	        if message.was_comment and message.subject == "username mention" and (not str(message.author).lower() == "automoderator"):
+                	        try:
+                        	        comments.append(reddit.comment(message.id))
+	                        except:  # if this fails, the user deleted their account or comment so skip it
+        	                        pass
+                	elif not message.was_comment:
+                        	messages.append(message)
+	except:
+		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
+
+	if not debug:
+		for message in to_mark_as_read:
+			try:
+				message.mark_read()
+			except:
+				print("Unable to mark message as read. Leaving it as is.")
 
         comments = list(set(comments))  # Dedupe just in case we get duplicates from the two sources
 
@@ -205,11 +189,20 @@ def set_archived_comments(reddit, comments):
 	comments = list(set(comments))
 
 def handle_comment(comment, bot_username, swap_data, sub, to_write):
-	OP = comment.parent().author  # Get the OP of the post (because one of the users in the comment chain must be the OP)
+	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
+	if isinstance(comment.parent(), praw.models.Comment) and bot_username in comment.parent().body and 'automod' not in str(comment.parent().author).lower():
+		return
         author1 = comment.author  # Author of the top level comment
-        comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').split(" ")]  # all words in the top level comment
+        comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]  # all words in the top level comment
 	if debug:
 		print(" ".join(comment_word_list))
+# Had to comment this out because it will post a comment every time it runs.
+# If I can figure out how to get it to reply only once, this will be really useful.
+#	if any('https://wwwredditcom/user/' in s for s in comment_word_list):
+#		if not debug:
+#			comment.reply("It looks like you might have made a mistake in how you tagged your trade partner. You added their reddit user name as a link rather than as a tag. Pleae **EDIT** this comment and remove their username, then retype it (do not copy and paste their name) to look like 'u/SomeUsername' and they shoud be properly tagged. I'll do my best to track this comment anyway, but please try to fix your tag. Thanks!")
+#		else:
+#			print("    It looks like you might have made a mistake in how you tagged your trade partner. You added their reddit user name as a link rather than as a tag. Pleae **EDIT** this comment and remove their username, then retype it (do not copy and paste their name) to look like 'u/SomeUsername' and they shoud be properly tagged. I'll do my best to track this comment anyway, but please try to fix your tag. Thanks!")
         desired_author2_string = get_desired_author2_name(comment_word_list, bot_username, str(author1))
         if not desired_author2_string:
                 handle_no_author2(comment_word_list, comment)
@@ -220,7 +213,7 @@ def handle_comment(comment, bot_username, swap_data, sub, to_write):
 		if debug:
 			print("Author1: " + str(author1))
 			print("Author2: " + str(author2))
-                if OP in [author1, author2]:  # make sure at least one of them is the OP for the post
+                if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
 			comment_to_check = comment
 			while comment_to_check.__class__.__name__ == "Comment":  # Ensures we actually get the id of the parent POST and not just a parent comment
 				comment_to_check = comment_to_check.parent()
@@ -241,7 +234,7 @@ def get_desired_author2_name(comment_word_list, bot_username, author_username_st
 			desired_author2_string = word
 			if desired_author2_string[0] == "/":  # Sometimes people like to add a / to the u/username
 				desired_author2_string = desired_author2_string[1:]
-			if not desired_author2_string[2:] == author_username_string:
+			if not desired_author2_string[2:] == author_username_string.lower():
  				return desired_author2_string
 	return ""
 
@@ -256,7 +249,9 @@ def handle_no_author2(comment_word_list, comment):
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
 def find_correct_reply(comment, author1, desired_author2_string):
-	for reply in comment.replies.list():
+	replies = comment.replies
+	replies.replace_more(limit=None)
+	for reply in replies.list():
 # Commented this out for now. Sometimes people say something other than confirmed but it has the same idea behind it
 # So as long as the person replying is the person being tagged, no reason to not give them credit, really.
 #		if not 'confirm' in reply.body.lower():  # if a reply does not say confirm, skip it
@@ -280,12 +275,21 @@ def inform_comment_archived(comment, to_archive):
 		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
 
 
+def inform_comment_deleted(comment):
+	try:
+		if not debug:
+			comment.reply("This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner.")
+		else:
+			print("This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner.")
+	except Exception as e:
+		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
+
 def inform_giving_credit(correct_reply):
 	try:
 		if not debug:
-			correct_reply.reply("Swap has been confirmed!")
+			correct_reply.reply("Added")
 		else:
-			print("Swap has been confirmed!" + "\n==========")
+			print("Added" + "\n==========")
 	except Exception as e:  # Comment was porobably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
@@ -299,6 +303,10 @@ def inform_credit_already_give(correct_reply):
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
 def main():
+	# We want to give ourselves some buffer time during archive run, so we do't run for ten minutes after
+	# archive run.
+	if is_time_between(datetime.time(2,3), datetime.time(2,9)) and not debug:
+		return
 	reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 	sub = reddit.subreddit(subreddit_name)
 
@@ -315,8 +323,9 @@ def main():
 	for comment in comments:
 		try:
 			comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
-		except:
+		except: # if we can't refresh a comment, archive it so we don't waste time on it.
 			print("Could not 'refresh' comment: " + str(comment))
+			to_archive.append(str(comment.id))
 			continue
 		time_made = comment.created
 		if time.time() - time_made > 3 * 24 * 60 * 60:  # if this comment is more than three days old
@@ -329,7 +338,8 @@ def main():
 			add_to_archive(to_archive)
 
 	# If it is between 00:00 and 00:02 UTC, check the archived comments
-	if is_time_between(datetime.time(02,00), datetime.time(02,02)) or debug:
+	if is_time_between(datetime.time(2,0), datetime.time(2,2)) or debug:
+#	if True:
 		print("Looking through archived comments...")
 		comments = []
 		to_write = []  # What we will eventually write out to the local file
@@ -340,7 +350,11 @@ def main():
                 	except:
                         	print("Could not 'refresh' comment: " + str(comment))
 	                        continue
-			handle_comment(comment, bot_username, swap_data, sub, to_write)
+			time_made = comment.created
+			if time.time() - time_made > 30 * 24 * 60 * 60:  # if this comment is more than thirty days old
+				inform_comment_deleted(comment)
+			else:
+				handle_comment(comment, bot_username, swap_data, sub, to_write)
 
 		if not debug:
 			dump_archive(to_write)
@@ -353,66 +367,62 @@ def main():
 		text = (message.body + " " +  message.subject).replace("\n", " ").replace("\r", " ").split(" ")  # get each unique word
 		username = ""  # This will hold the username in question
 		for word in text:
-			if '/u/' in word.lower():  # Save the username and break early
+			if '/u/' in word.lower():  # Same as above but if they start with a leading /u/ instead of u/
 				username = word.lower()[3:]
 				break
-			if 'u/' in word.lower():  # Same as above, but without a leading /
-				username = word.lower()[2:]  
+			if 'u/' in word.lower():  # if we have a username
+				username = word.lower()[2:]  # Save the username and break early
 				break
 		if not username:  # If we didn't find a username, let them know and continue
 			if not debug:
-				message.reply("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, such as u/SteelbookSwapBot, in the body of the message you just sent me. Please feel free to try again. Thanks!")
+				try:
+					message.reply("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, in the body of the message you just sent me. Please feel free to try again. Thanks!")
+				except Exception as e:
+					print("Could not reply to message with error...")
+					print("    " + str(e))
 			else:
-				print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, such as u/SteelbookSwapBot, in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
+				print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
 			continue
 		final_text = ""
 		try:
 			trades = swap_data[username]
 		except:  # if that user has not done any trades, we have no info for them.
 			if not debug:
-				message.reply("Hello,\n\nu/" + username + " has not had any swaps yet.")
+				try:
+					message.reply("Hello,\n\nu/" + username + " has not had any swaps yet.")
+				except Exception as e:
+					print("Could not reply to message with error...")
+					print("    " + str(e))
 			else:
 				print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
 			continue
 
-		br_count = 0  # Tracks verified swaps someone has on Blu-ray.com
-		hdd_count = 0  # Tracks verified swaps someone has on High-Def Digest
-		hdn_count = 0  # Tracks verified swaps someone has on Hi-Def Ninja
-		mp_count = 0  # Tracks verified swaps someone has on Media Psychos
-		legacy_count = 0  # Tracks legacy swaps someone has from r/Steelbooks
+		legacy_count = 0  # Use this to track the number of legacy swaps someone has
 		for trade in trades:
 			if trade == "LEGACY TRADE":
 				legacy_count += 1
-			elif trade == "VERIFIED BR":
-				br_count += 1
-			elif trade == "VERIFIED HDD":
-				hdd_count += 1
-			elif trade == "VERIFIED HDN":
-				hdn_count += 1
-			elif trade == "VERIFIED MP":
-				mp_count += 1
 			else:
 				final_text += "*  u/" + trade + "\n\n"
 
 		if legacy_count > 0:
 			final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
-		if mp_count > 0:
-			final_text = "* " + str(mp_count) + " Trades from Media Psychos.\n\n" + final_text
-		if hdn_count > 0:
-			final_text = "* " + str(hdn_count) + " Trades from Hi-Def Ninja.\n\n" + final_text
-		if hdd_count > 0:
-			final_text = "* " + str(hdd_count) + " Trades from High-Def Digest.\n\n" + final_text
-		if br_count > 0:
-			final_text = "* " + str(br_count) + " Trades from Blu-Ray.com.\n\n" + final_text
 
 		if len(trades) == 0:
 			if not debug:
-				message.reply("Hello,\n\nu/" + username + " has not had any swaps yet.")
+				try:
+					message.reply("Hello,\n\nu/" + username + " has not had any swaps yet.")
+				except Exception as e:
+					print("Could not reply to message with error...")
+					print("    " + str(e))
 			else:
 				print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
 		else:
 			if not debug:
-				message.reply("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text)
+				try:
+					message.reply("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text)
+				except Exception as e:
+					print("Could not reply to message with error...")
+					print("    " + str(e))
 			else:
 				print("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text + "\n==========")
 
